@@ -1,35 +1,90 @@
 export default {
-    home_intro_1: "Salut, moi c’est Sara",
-    home_intro_2: "développeuse full stack",
+    home: {
+        intro: {
+            line1: "Salut, moi c'est Sara",
+            line2: "développeuse full stack",
+        },
+        description: {
+            part1: "Mais je suis aussi amoureuse du café et collectionneuse de ",
+            part2: "(beaucoup trop) ",
+            part3: "passions",
+        },
+        hint: "La page semble vide ?\nEssaie de trouver tous les stickers cachés",
+    },
 
-    home_description_1: "Mais je suis aussi amoureuse du café et collectionneuse de ",
-    home_description_2: "(beaucoup trop) ",
-    home_description_3: "passions",
+    nav: {
+        home: "accueil",
+        projects: "projets",
+        about: "À propos",
+        instruction: "Utilise les prompts ci-dessous pour commencer.",
+    },
 
-    home_hint: "La page semble vide ?\nEssaie de trouver tous les stickers cachés",
+    sticker: {
+        found: "Tu as trouvé le sticker",
+        suffix: "",
 
-    nav_home: "accueil",
-    nav_projects: "projets",
-    nav_me: "moi",
+        lang: {
+            name: "polyglotte",
+            desc: "Je parle plusieurs langues… mais il m'arrive de les mélanger au milieu d'une phrase. Ça a du sens. Juste pas pour tout le monde.",
+        },
+        coffee: {
+            name: "café",
+            desc: "J'adore le café… mais je le bois rarement tant qu'il est encore chaud.",
+        },
+    },
 
-    sticker_found: "Tu as trouvé le sticker",
-    sticker_suffix: "",
+    projects: {
+        portfolio: {
+            title: "Portfolio",
+            desc: "Le site que vous consultez actuellement. Conçu et développé from scratch avec React, TypeScript et Framer Motion. Il propose un curseur personnalisé, des éléments cachés à découvrir, un support multilingue ainsi qu'un thème clair/sombre.",
+        },
+        predik360: {
+            title: "Predik360",
+            desc: "Une plateforme de gestion interne pour les EHPAD — gestion des commandes, de la facturation, des contrats et des documents, avec une intégration à DocuWare.",
+        },
+        meta: {
+            tags: "Tags",
+            tech: "Technologies",
+            year: "Année",
+        },
+    },
 
-    sticker_lang_name: "polyglotte",
-    sticker_lang_desc: "Je parle plusieurs langues… mais il m’arrive de les mélanger au milieu d’une phrase. Ça a du sens. Juste pas pour tout le monde.",
+    about: {
+        description:
+            "Ancienne graphiste devenue développeuse full-stack, je conçois des applications web modernes avec Angular, React et Spring Boot, en alliant architecture propre et expérience utilisateur soignée.",
 
-    sticker_coffee_name: "café",
-    sticker_coffee_desc: "J’adore le café… mais je le bois rarement tant qu’il est encore chaud.",
+        companies: {
+            title: "Entreprises avec lesquelles j'ai travaillé",
+            list: [
+                "Empirys (Luxembourg)",
+                "Croix-Rouge (Belgique)",
+                "AvProd (France)",
+                "87 seconds (Belgique)",
+            ],
+        },
 
-    project_predik360_title: "Predik360",
-    project_predik360_desc: "Une plateforme de prédiction full stack pensée pour les analystes et passionnés de sport.",
-    project_predik360_tags: "Frontend · Backend",
-
-    project_portfolio_title: "Portfolio",
-    project_portfolio_desc: "Le site sur lequel vous êtes. Conçu et développé from scratch avec React et Framer Motion.",
-    project_portfolio_tags: "Frontend",
-
-    project_nomapp_title: "Nomapp",
-    project_nomapp_desc: "Une app pour nomades digitaux pour trouver et partager des lieux remote-friendly.",
-    project_nomapp_tags: "Frontend · Backend",
-}
+        skills: {
+            title: "Compétences",
+            categories: {
+                development: "Développement",
+                interface: "Interface",
+            },
+            list: {
+                dev: [
+                    "Java · Spring Boot",
+                    "React · Angular · TypeScript",
+                    "Node.js · NestJS",
+                    "MySQL · MongoDB",
+                    "SonarQube · Docker",
+                ],
+                ui: [
+                    "UI/UX · Systèmes de design",
+                    "Framer Motion",
+                    "Design responsive",
+                    "Figma",
+                    "Suite Adobe",
+                ],
+            },
+        },
+    },
+};

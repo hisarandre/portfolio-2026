@@ -1,32 +1,54 @@
 // @refresh reset
 
-import { createContext, useContext, useState } from "react";
-import { translations, type Lang, type TranslationKey } from "../i18n";
+import { createContext, useContext, useState, useCallback } from "react";
+import { translations, type Lang } from "../i18n";
 import PageTransition from "../components/ui/PageTransition";
 
-const LangContext = createContext<{
+interface LangContextType {
     lang: Lang;
     setLang: (l: Lang) => void;
-    t: (key: TranslationKey) => string;
-}>({ lang: "en", setLang: () => {}, t: (key) => key });
+    t: (key: string, options?: { returnObjects?: boolean }) => any;
+}
+
+const LangContext = createContext<LangContextType>({
+    lang: "en",
+    setLang: () => {},
+    t: (key) => key,
+});
+
+const TRANSITION_DURATION = 800;
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
     const [lang, setLang] = useState<Lang>("en");
     const [loading, setLoading] = useState(false);
 
-    const changeLang = (newLang: Lang) => {
+    const changeLang = useCallback((newLang: Lang) => {
         setLoading(true);
         setTimeout(() => {
             setLang(newLang);
             setLoading(false);
-        }, 800);
-    };
+        }, TRANSITION_DURATION);
+    }, []);
 
-    const t = (key: TranslationKey) => translations[lang][key];
+    const t = useCallback(
+        (key?: string, options?: { returnObjects?: boolean }) => {
+            if (!key) return "";
+
+            const value = key
+                .split(".")
+                .reduce((obj, k) => (obj ? obj[k] : undefined), translations[lang]);
+
+            if (Array.isArray(value)) return value;
+            if (typeof value === "object" && options?.returnObjects) return value;
+
+            return value ?? key;
+        },
+        [lang]
+    );
 
     return (
         <LangContext.Provider value={{ lang, setLang: changeLang, t }}>
-            <PageTransition visible={loading} message="Changing language..." />
+            <PageTransition visible={loading} message="Switching language..." />
             {children}
         </LangContext.Provider>
     );

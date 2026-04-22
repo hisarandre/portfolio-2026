@@ -1,5 +1,4 @@
 import coffeeImg from "../assets/stickers/coffee.png";
-import pokemonImg from "../assets/stickers/pokemon.png";
 import polyImg from "../assets/stickers/polyglote.png";
 import type {TranslationKey} from "../i18n";
 
@@ -22,35 +21,23 @@ export const stickers: StickerData[] = [
         image: coffeeImg,
         defaultPos: { x: 62, y: 35 },
         defaultRot: 12,
-        size: 180,
+        size: 140,
         trigger: "coffee",
-        foundKey: "sticker_found",
-        suffixKey: "sticker_suffix",
-        nameKey: "sticker_coffee_name",
-        descKey: "sticker_coffee_desc",
+        foundKey: "sticker.found",
+        suffixKey: "sticker.suffix",
+        nameKey: "sticker.coffee.name",
+        descKey: "sticker.coffee.desc",
     },
     {
         id: 2,
-        image: pokemonImg,
-        defaultPos: { x: 70, y: 62 },
-        defaultRot: -8,
-        size: 180,
-        trigger: "pokemon",
-        foundKey: "sticker_found",
-        suffixKey: "sticker_suffix",
-        nameKey: "sticker_coffee_name",
-        descKey: "sticker_coffee_desc",
-    },
-    {
-        id: 3,
         image: polyImg,
         defaultPos: { x: 74, y: 38 },
         defaultRot: 6,
-        size: 180,
+        size: 220,
         trigger: "lang",
-        foundKey: "sticker_found",
-        suffixKey: "sticker_suffix",
-        nameKey: "sticker_coffee_name",
-        descKey: "sticker_coffee_desc",
+        foundKey: "sticker.found",
+        suffixKey: "sticker.suffix",
+        nameKey: "sticker.lang.name",
+        descKey: "sticker.lang.desc",
     },
 ];

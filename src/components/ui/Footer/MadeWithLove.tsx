@@ -8,12 +8,18 @@ const variants = {
     exit:    { opacity: 0, y: -10 },
 };
 
-export default function MadeWithLove() {
+const transition = { duration: 0.2 };
+
+interface Props {
+    className?: string;
+}
+
+export default function MadeWithLove({ className }: Props) {
     const [hovered, setHovered] = useState(false);
 
     return (
         <div
-            className="flex items-center gap-1 uppercase"
+            className={`flex items-center gap-1 uppercase ${className ?? ""}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
@@ -26,12 +32,13 @@ export default function MadeWithLove() {
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        transition={{ duration: 0.2 }}
+                        transition={transition}
                     >
-                        {hovered
-                            ? <HeartIcon size={16} weight="fill" className="text-[var(--lime)]" />
-                            : <HeartIcon size={16} weight="regular" />
-                        }
+                        <HeartIcon
+                            size={16}
+                            weight={hovered ? "fill" : "regular"}
+                            className={hovered ? "text-[var(--lime)]" : ""}
+                        />
                     </motion.div>
                 </AnimatePresence>
             </div>

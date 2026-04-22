@@ -14,6 +14,7 @@ import {LoadingProvider, useLoading} from "./context/LoadingContext.tsx";
 import Projects from "./pages/Projects.tsx";
 import About from "./pages/About.tsx";
 import { useLenis } from "./hooks/useLenis.ts";
+import { PageTransitionProvider } from "./context/PageTransitionContext";
 
 function AppContent() {
     const { dark, toggle } = useTheme();
@@ -22,7 +23,7 @@ function AppContent() {
     const { isLoading } = useLoading();
 
     return (
-        <>
+        <PageTransitionProvider>
             <CustomCursor />
             <StickerModal sticker={justDiscovered} onClose={clearJustDiscovered} />
             <Layout onThemeToggle={toggle} dark={dark}>
@@ -36,7 +37,7 @@ function AppContent() {
             <AnimatePresence>
                 {isLoading && <LoadingText />}
             </AnimatePresence>
-        </>
+        </PageTransitionProvider>
     );
 }
 

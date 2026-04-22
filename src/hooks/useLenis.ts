@@ -7,7 +7,7 @@ export function useLenis() {
 
     useEffect(() => {
         const lenis = new Lenis({
-            lerp: 0.08,
+            lerp: 0.02,
             smoothWheel: true,
             autoRaf: false,
         });

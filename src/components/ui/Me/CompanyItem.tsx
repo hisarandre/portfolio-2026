@@ -21,14 +21,14 @@ export function CompanyItem({company, index, progress}: {
     );
 
     return (
-        <div className="relative text-6xl font-semibold leading-none">
-            <span className="text-[var(--border)] block">{company}</span>
-            <motion.span
+        <div className="relative text-lg leading-none pb-8">
+            <p className="text-[var(--border)] block">{company}</p>
+            <motion.p
                 style={{ WebkitMaskImage: mask, maskImage: mask }}
-                className="absolute inset-0 text-[var(--text)] will-change-[mask-image]"
+                className="absolute inset-0 text-[var(--muted)] will-change-[mask-image]"
             >
                 {company}
-            </motion.span>
+            </motion.p>
         </div>
     );
 }

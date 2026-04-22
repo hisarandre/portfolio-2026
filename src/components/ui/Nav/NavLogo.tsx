@@ -1,19 +1,19 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { usePageTransition } from "../../../context/PageTransitionContext";
 
 const letters = "ANDRE".split("");
 
 export default function NavLogo() {
     const [hovered, setHovered] = useState(false);
-    const navigate = useNavigate();
+    const { navigateTo } = usePageTransition();
 
     return (
         <div
             className="flex items-center overflow-hidden cursor-pointer"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onClick={() => navigate("/")}
+            onClick={() => navigateTo("/", "Home")}
         >
             <span className="pr-1">SARA</span>
             <AnimatePresence>

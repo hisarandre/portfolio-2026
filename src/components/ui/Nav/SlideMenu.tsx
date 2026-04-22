@@ -1,27 +1,39 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useMenu } from "../../../context/MenuContext.tsx";
-import { Link, useNavigate } from "react-router-dom";
+import { useMenu } from "../../../context/MenuContext";
 import { useEffect, useRef, useState } from "react";
-import { useLang } from "../../../context/LangContext.tsx";
-import { links } from "../../../data/menuLinks.ts";
+import { useLang } from "../../../context/LangContext";
+import { usePageTransition } from "../../../context/PageTransitionContext";
+import { links } from "../../../data/menuLinks";
 import type { KeyboardEvent } from "react";
+import { useHoverCursor } from "../../../hooks/useHoverCursor";
 
 export default function SlideMenu() {
     const { open, setOpen } = useMenu();
-    const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useLang();
-    const navigate = useNavigate();
+    const { navigateTo } = usePageTransition();
+    const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
+    const hoverProps = useHoverCursor();
 
-    const matched = links.find(
-        (l) => t(l.labelKey).toLowerCase() === query.toLowerCase().trim()
-    );
+    const normalizedQuery = query.toLowerCase().trim();
+
+    const matched =
+        normalizedQuery.length > 0
+            ? links.find(
+                (l) =>
+                    t(`nav.${l.id}`).toLowerCase() === normalizedQuery
+            )
+            : undefined;
+
+    const handleNavigate = (path: string, label: string) => {
+        navigateTo(path, label);
+        setOpen(false);
+        setQuery("");
+    };
 
     const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && matched) {
-            navigate(matched.path);
-            setOpen(false);
-            setQuery("");
+            handleNavigate(matched.path, t(`nav.${matched.id}`));
         }
     };
 
@@ -43,24 +55,24 @@ export default function SlideMenu() {
                     animate={{ x: 0 }}
                     exit={{ x: "100%" }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="fixed top-0 right-0 h-screen w-[320px] bg-[var(--dark)] border-l border-[var(--border)] z-[200] flex flex-col p-16 font-mono"
+                    className="fixed top-0 right-0 h-screen w-[360px] bg-[var(--dark)] z-[200] flex flex-col p-16 font-mono"
                 >
-                    {/* Title */}
+                    {/* TITLE */}
                     <motion.p
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15, duration: 0.3 }}
-                        className="text-[var(--muted)] text-xs tracking-widest uppercase pb-4"
+                        className="text-[var(--muted)] tracking-widest uppercase pb-4"
                     >
                         Command Terminal
                     </motion.p>
 
-                    {/* Input */}
+                    {/* INPUT */}
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.3 }}
-                        className="flex items-center gap-3 border-b border-[var(--border)] pb-4 mb-4"
+                        className="flex items-center gap-3 border-b border-[var(--border)] pb-8 mb-8"
                     >
                         <span className="text-[var(--lime)]">:/</span>
                         <input
@@ -69,56 +81,65 @@ export default function SlideMenu() {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={handleKey}
-                            placeholder="type a page..."
-                            className="bg-transparent outline-none text-[var(--text)] placeholder:text-[var(--muted)] text-sm w-full"
+                            placeholder="type a page"
+                            className="bg-transparent outline-none text-[var(--text)] placeholder:text-[var(--muted)] w-full"
                         />
                     </motion.div>
 
-                    {/* Hint */}
+                    {/* INSTRUCTION */}
                     <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.25, duration: 0.3 }}
-                        className="text-[var(--muted)] text-xs mb-8"
+                        className="text-[var(--muted)] mb-8"
                     >
-                        Start typing and use one of the prompts below.
+                        {t("nav.instruction")}
                     </motion.span>
 
-                    {/* Links */}
-                    <nav className="flex gap-2 flex-wrap">
+                    {/* LINKS */}
+                    <nav className="flex gap-x-2 gap-y-4 flex-wrap">
                         {links.map((link, i) => {
+                            const label = t(`nav.${link.id}`);
                             const isMatch = matched?.path === link.path;
+
                             return (
                                 <motion.div
+                                    {...hoverProps}
                                     key={link.path}
                                     initial={{ opacity: 0, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.15 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{
+                                        delay: 0.15 + i * 0.08,
+                                        duration: 0.5,
+                                        ease: [0.22, 1, 0.36, 1],
+                                    }}
                                 >
-                                    <Link
-                                        to={link.path}
-                                        onClick={() => { setOpen(false); setQuery(""); }}
-                                        className={`lowercase px-3 py-1.5 rounded text-xs transition-all duration-200 ${
+                                    <span
+                                        onClick={() =>
+                                            handleNavigate(link.path, label)
+                                        }
+                                        className={`lowercase px-3 py-1.5 rounded transition-all duration-200 cursor-pointer ${
                                             isMatch
                                                 ? "bg-[var(--lime)] text-[var(--dark)]"
                                                 : "bg-[var(--border)] text-[var(--muted)] hover:text-[var(--text)]"
                                         }`}
                                     >
-                                        {t(link.labelKey)}
-                                    </Link>
+                                        {label}
+                                    </span>
                                 </motion.div>
                             );
                         })}
                     </nav>
 
-                    {/* Footer */}
+                    {/* FOOTER */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4, duration: 0.3 }}
-                        className="mt-auto text-[var(--muted)] text-xs"
+                        className="mt-auto text-[var(--muted)]"
                     >
-                        press <span className="text-[var(--text)]">esc</span> or <span className="text-[var(--text)]">/</span> to close
+                        press <span className="text-[var(--text)]">esc</span> or{" "}
+                        <span className="text-[var(--text)]">/</span> to close
                     </motion.div>
                 </motion.div>
             )}

@@ -10,9 +10,9 @@ export default function ProfileDescription() {
         <>
             <img src={profile} alt="profile" className="mb-8 rounded-xl" />
             <p {...handlers}>
-                {t("home_description_1")}
-                <span className="text-[var(--muted)]">{t("home_description_2")}</span>
-                {t("home_description_3")}
+                {t("home.description.part1")}
+                <span className="text-[var(--muted)]">{t("home.description.part2")}</span>
+                {t("home.description.part3")}
             </p>
         </>
     );

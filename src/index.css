@@ -3,7 +3,7 @@
 :root[data-theme="dark"] {
   --lime: #d4f55c;
   --dark: #0e0e0e;
-  --text: #E3E1D2;
+  --text: #c7cbc6;
   --muted: #60604E;
   --border: #1a1a1a;
   --card: #1a1a1a;
@@ -11,7 +11,7 @@
 
 :root[data-theme="light"] {
   --lime: #5a8a00;
-  --dark: #E3E1D2;
+  --dark: #deddd6;
   --text: #0e0e0e;
   --muted: #666;
   --border: #ececec;
@@ -25,7 +25,10 @@ body {
   background-color: var(--dark);
   color: var(--text);
   overflow-x: hidden;
-
+  font-size: 26px;
+  @media (max-width: 2460px) {
+    font-size: 16px;
+  }
 }
 
 h1,
@@ -34,7 +37,7 @@ h2 {
 }
 
 h1 {
-  font-size: 72px;
+  font-size: 88px;
   letter-spacing: -1.68px;
   margin: 32px 0;
   @media (max-width: 2460px) {
@@ -46,6 +49,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -57,7 +61,12 @@ h2 {
 }
 p {
   margin: 0;
+  font-size: 26px;
+  @media (max-width: 2460px) {
+    font-size: 16px;
+  }
 }
+
 * {
   cursor: none !important;
 }

@@ -1,35 +1,90 @@
 export default {
-    home_intro_1: "Hi, I am Sara",
-    home_intro_2: "a full stack developer",
+    home: {
+        intro: {
+            line1: "Hi, I am Sara",
+            line2: "a full stack developer",
+        },
+        description: {
+            part1: "But I am also a coffee lover and a collector of ",
+            part2: "(too many) ",
+            part3: "passions",
+        },
+        hint: "Page feels empty? Try finding all the hidden stickers",
+    },
 
-    home_description_1: "But I am also a coffee lover and a collector of ",
-    home_description_2: "(too many) ",
-    home_description_3: "passions",
-    home_hint: "Page feels empty? \n" + "Try finding all the hidden stickers",
+    nav: {
+        home: "Home",
+        projects: "Projects",
+        about: "About",
+        instruction: "Start typing and use one of the prompts below.",
+    },
 
-    nav_home: "home",
-    nav_projects: "projects",
-    nav_me: "me",
+    sticker: {
+        found: "You found the",
+        suffix: "sticker",
 
-    sticker_found: "You found the",
-    sticker_suffix: "sticker",
+        lang: {
+            name: "polyglot",
+            desc: "I speak multiple languages... but sometimes mix them mid-sentence. It makes sense. Just not to everyone.",
+        },
+        coffee: {
+            name: "coffee",
+            desc: "Although I love coffee… I rarely drink it while it’s still hot.",
+        },
+    },
 
-    sticker_lang_name: "polyglot",
-    sticker_lang_desc: "I speak multiple languages... but sometimes mix them mid-sentence. It makes sense. Just not to everyone.",
+    projects: {
+        portfolio: {
+            title: "Portfolio",
+            desc: "The site you're looking at. Designed and developed from scratch with React, TypeScript and Framer Motion. Features a custom cursor, hidden stickers to discover, multilingual support, and a dark/light theme.",
+        },
+        predik360: {
+            title: "Predik360",
+            desc: "An internal management platform for EHPADs — handling orders, invoicing, contracts and document management, integrated with DocuWare.",
+        },
+        meta: {
+            tags: "Tags",
+            tech: "Technologies",
+            year: "Year",
+        },
+    },
 
-    sticker_coffee_name: "coffee",
-    sticker_coffee_desc: "Although, I love coffee… I rarely drink it while it’s still hot.",
+    about: {
+        description:
+            "Former graphic designer turned full-stack developer, I build modern web applications using Angular, React, and Spring Boot—combining clean architecture with thoughtful, user-focused design.",
 
-    project_predik360_title: "Predik360",
-    project_predik360_desc: "An internal management platform for EHPADs — handling orders, invoicing, contracts and document management, integrated with Docuware.",
+        companies: {
+            title: "Companies I have worked with",
+            list: [
+                "Empirys (Luxembourg)",
+                "Red Cross (Belgium)",
+                "AvProd (France)",
+                "87 seconds (Belgium)",
+            ],
+        },
 
-    project_portfolio_title: "Portfolio",
-    project_portfolio_desc: "The site you're looking at. Designed and developed from scratch with React, TypeScript and Framer Motion. Features a custom cursor, hidden stickers to discover, multilingual support, and a dark/light theme.",
-
-    project_nomapp_title: "Nomapp",
-    project_nomapp_desc: "The site you're looking at. Designed and developed from scratch with React, TypeScript and Framer Motion. Features a custom cursor, hidden stickers to discover, multilingual support, and a dark/light theme.",
-
-    about_description: "I am a fullstack developer with a keen eye for graphic design. I have been working as a graphic designer before becoming a fullstack developer.",
-    about_companies_title: "Companies I have worked with",
-
-}
+        skills: {
+            title: "Skills",
+            categories: {
+                development: "Development",
+                interface: "Interface",
+            },
+            list: {
+                dev: [
+                    "Java · Spring Boot",
+                    "React · Angular · TypeScript",
+                    "Node.js · NestJS",
+                    "MySQL · MongoDB",
+                    "SonarQube · Docker",
+                ],
+                ui: [
+                    "UI/UX · Design Systems",
+                    "Framer Motion",
+                    "Responsive Design",
+                    "Figma",
+                    "Adobe Suite",
+                ],
+            },
+        },
+    },
+};

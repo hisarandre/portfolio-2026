@@ -1,11 +1,22 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import music from "../../../assets/music/keshi-beside-you.mp3";
-import {useHoverCursor} from "../../../hooks/useHoverCursor.ts";
+import { useHoverCursor } from "../../../hooks/useHoverCursor";
 
 const bars = [1, 2, 3, 4];
 
-export default function MusicPlayer() {
+const barTransition = (b: number) => ({
+    duration: 0.7,
+    repeat: Infinity,
+    delay: b * 0.15,
+    ease: "easeInOut" as const,
+});
+
+interface Props {
+    className?: string;
+}
+
+export default function MusicPlayer({ className }: Props) {
     const [playing, setPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
     const hoverProps = useHoverCursor();
@@ -21,15 +32,13 @@ export default function MusicPlayer() {
     };
 
     return (
-
         <div
             {...hoverProps}
             onClick={toggle}
-            className="flex items-center gap-3 cursor-pointer group"
+            className={`flex items-center gap-3 cursor-pointer group ${className ?? ""}`}
         >
             <audio ref={audioRef} src={music} loop />
 
-            {/* Bouton */}
             <div className="w-7 h-7 rounded-md bg-[var(--text)] flex items-center justify-center shrink-0">
                 <AnimatePresence mode="wait" initial={false}>
                     {playing ? (
@@ -45,12 +54,7 @@ export default function MusicPlayer() {
                                     key={b}
                                     className="w-[2px] bg-[var(--dark)] rounded-full"
                                     animate={{ height: ["4px", "10px", "4px"] }}
-                                    transition={{
-                                        duration: 0.7,
-                                        repeat: Infinity,
-                                        delay: b * 0.15,
-                                        ease: "easeInOut",
-                                    }}
+                                    transition={barTransition(b)}
                                 />
                             ))}
                         </motion.div>

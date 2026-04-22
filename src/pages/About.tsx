@@ -1,66 +1,69 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useLenis } from "../hooks/useLenis";
-import { CompanyItem } from "../components/ui/Me/CompanyItem.tsx";
+import { CompanyItem } from "../components/ui/Me/CompanyItem";
 import about from "../assets/about.png";
-import { useLang } from "../context/LangContext.tsx";
-import OutsideLink from "../components/ui/OutsideLink.tsx";
+import { useLang } from "../context/LangContext";
+import AnimatedNoise from "../components/ui/AnimatedNoise";
 
-const companies = [
-    "Empirys (Luxembourg)",
-    "Red Cross (Belgium)",
-    "AvProd (France)",
-    "87 seconds (Belgium)",
-];
+const ease = [0.76, 0, 0.24, 1] as const;
+const contentEase = [0.22, 1, 0.36, 1] as const;
 
 export default function About() {
     useLenis();
     const { t } = useLang();
+    const [entered, setEntered] = useState(false);
 
-    const heroRef      = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const timer = setTimeout(() => setEntered(true), 100);
+        return () => clearTimeout(timer);
+    }, []);
+
     const companiesRef = useRef<HTMLDivElement>(null);
-    const skillsRef    = useRef<HTMLDivElement>(null);
+    const skillsRef = useRef<HTMLDivElement>(null);
 
-    // Hero
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end end"],
-    });
-    const smooth = useSpring(scrollYProgress, { stiffness: 40, damping: 30 });
+    const useSmoothScroll = (ref: React.RefObject<HTMLDivElement>, offset: string[]) => {
+        const { scrollYProgress } = useScroll({ target: ref, offset });
+        return useSpring(scrollYProgress, { stiffness: 40, damping: 30 });
+    };
 
-    const imageHeight = useTransform(smooth, [0, 0.3], ["100vh", "50vh"]);
-    const imageScale  = useTransform(smooth, [0, 0.3], [1, 0.98]);
-    const textY       = useTransform(smooth, [0.15, 0.4], [60, 0]);
-    const textOpacity = useTransform(smooth, [0.15, 0.4], [0, 1]);
-
-    // Companies
-    const { scrollYProgress: comp } = useScroll({
-        target: companiesRef,
-        offset: ["start 90%", "start 40%"]
-    });
-    const smoothComp = useSpring(comp, { stiffness: 40, damping: 30 });
-
-    // Skills
-    const { scrollYProgress: skills } = useScroll({
-        target: skillsRef,
-        offset: ["start 80%", "start 20%"],
-    });
-    const smoothSkills = useSpring(skills, { stiffness: 40, damping: 30 });
+    const smoothComp = useSmoothScroll(companiesRef, ["start 80%", "start 30%"]);
+    const smoothSkills = useSmoothScroll(skillsRef, ["start 80%", "start 20%"]);
 
     const skillsOpacity = useTransform(smoothSkills, [0, 1], [0, 1]);
-    const skillsY       = useTransform(smoothSkills, [0, 1], [60, 0]);
-    const skillsScale   = useTransform(smoothSkills, [0, 1], [0.96, 1]);
+    const skillsY = useTransform(smoothSkills, [0, 1], [60, 0]);
+
+    const companies = t("about.companies.list", { returnObjects: true }) as string[];
+    const devSkills = t("about.skills.list.dev", { returnObjects: true }) as string[];
+    const uiSkills  = t("about.skills.list.ui", { returnObjects: true }) as string[];
+
+    const SkillsBlock = ({ title, skills }: { title: string; skills: string[] }) => (
+        <div className="flex flex-col md:flex-row md:justify-between gap-6 border-b border-[var(--muted)] pb-12">
+            <p className="text-2xl md:text-3xl font-medium tracking-tight text-[var(--muted)]">
+                {title}
+            </p>
+
+            <div className="text-right space-y-2">
+                {skills.map((s) => (
+                    <p key={s} className="text-sm md:text-base">
+                        {s}
+                    </p>
+                ))}
+            </div>
+        </div>
+    );
 
     return (
-        <div className="w-full">
+        <>
+            <AnimatedNoise />
 
-            {/* HERO */}
-            <div ref={heroRef} className="h-[220vh]">
-                <div className="sticky top-0 h-screen overflow-hidden">
-
+            <div className="w-full">
+                {/* HERO */}
+                <div className="h-screen flex flex-col overflow-hidden -mt-32">
                     <motion.div
-                        style={{ height: imageHeight, scale: imageScale }}
-                        className="w-full overflow-hidden origin-top"
+                        animate={{ height: entered ? "60vh" : "100vh" }}
+                        transition={{ duration: 1.2, ease }}
+                        className="w-full shrink-0 overflow-hidden"
                     >
                         <img
                             src={about}
@@ -69,82 +72,97 @@ export default function About() {
                     </motion.div>
 
                     <motion.div
-                        style={{ y: textY, opacity: textOpacity }}
-                        className="absolute bottom-32 left-0 right-0 px-6 sm:px-10 md:px-20 z-10"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                        transition={{ duration: 0.8, ease: contentEase, delay: 0.5 }}
+                        className="px-6 sm:px-10 md:px-20 pt-8 md:pt-12 flex-1"
                     >
-                        <div className="flex items-start justify-between gap-16">
-                            <h1 className="text-6xl font-medium tracking-tight shrink-0">
-                                Hi there
-                            </h1>
-                            <div className="max-w-sm">
-                                <p className="text-[var(--muted)] leading-relaxed pb-6">
-                                    {t("about_description")}
-                                </p>
-                                <p className="text-[var(--muted)] text-sm opacity-50">
-                                    Scroll or download my{" "}
-                                    <OutsideLink label="CV" href="https://github.com/yourname" />
-                                </p>
+                        <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-16">
+                            <div>
+                                <div className="text-[var(--lime)]">01/</div>
+
+                                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-medium tracking-tight leading-none">
+                                    Hi there :)
+                                </h1>
                             </div>
+
+                            <p className="max-w-xs sm:max-w-sm md:max-w-md text-[var(--muted)] leading-relaxed md:pt-4">
+                                {t("about.description")}
+                            </p>
                         </div>
                     </motion.div>
-
                 </div>
-            </div>
 
-            {/* COMPANIES */}
-            <div ref={companiesRef} className="bg-[var(--dark)] py-40 px-6 sm:px-10 md:px-20 h-[160vh]">
-                <div className="max-w-4xl flex flex-col gap-10 sticky top-32">
-                    <p className="text-xs font-mono uppercase tracking-widest text-[var(--muted)] mb-8">
-                        {t("about_companies_title")}
-                    </p>
-                    {companies.map((company, i) => (
-                        <CompanyItem
-                            key={company}
-                            company={company}
-                            index={i}
-                            progress={smoothComp}
-                        />
-                    ))}
+                {/* COMPANIES */}
+                <div
+                    ref={companiesRef}
+                    className="bg-[var(--dark)] mx-20 mt-8"
+                >
+                    <div className="w-full flex flex-col md:flex-row justify-between gap-10 sticky top-32">
+
+                        <div className="w-[35vh]">
+                            <div className="text-[var(--lime)] pb-6">02/</div>
+
+                            <h2 className="!text-5xl font-medium tracking-tight leading-none">
+                                {t("about.companies.title")}
+                            </h2>
+                        </div>
+
+                        <div className="text-right pt-12">
+                            {companies.map((company, i) => (
+                                <CompanyItem
+                                    key={company}
+                                    company={company}
+                                    index={i}
+                                    progress={smoothComp}
+                                />
+                            ))}
+                        </div>
+
+                    </div>
                 </div>
-            </div>
 
-            {/* SKILLS */}
-            <div ref={skillsRef} className="h-screen bg-[var(--dark)]">
-                <div className="h-full flex items-center justify-center px-6">
-
+                {/* SKILLS */}
+                <div
+                    ref={skillsRef}
+                    className="bg-[var(--dark)] m-20 mt-32"
+                >
                     <motion.div
-                        className="w-full max-w-5xl border border-[var(--border)] rounded-2xl p-16 bg-[var(--card)]"
+                        className="w-full grid grid-cols-1 md:grid-cols-3 gap-16"
                         style={{
                             opacity: skillsOpacity,
-                            scale: skillsScale
+                            y: skillsY,
                         }}
                     >
-                        <h2 className="text-5xl font-medium pb-8">
-                            Skills
-                        </h2>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                            <div>
-                                <p className="text-[var(--muted)] text-xs uppercase tracking-widest font-mono mb-6">
-                                    Development
-                                </p>
-                                {["Java · Spring Boot", "React · Angular · TypeScript", "Node.js · NestJS", "MySQL · MongoDB",
-                                    "SonarQube · Docker"].map((s) => (
-                                    <p key={s} className="py-3 border-b border-[var(--border)] last:border-0">{s}</p>
-                                ))}
-                            </div>
-                            <div>
-                                <p className="text-[var(--muted)] text-xs uppercase tracking-widest font-mono mb-6">
-                                    Interface
-                                </p>
-                                {["UI/UX · Design Systems", "Framer Motion", "Responsive Design", "Figma", "Adobe Suite"].map((s) => (
-                                    <p key={s} className="py-3 border-b border-[var(--border)] last:border-0">{s}</p>
-                                ))}
+                        {/* LEFT */}
+                        <div className="md:col-span-1">
+                            <div className="sticky top-32">
+                                <div className="text-[var(--lime)] pb-6">03/</div>
+
+                                <h2 className="!text-5xl font-medium tracking-tight leading-none">
+                                    {t("about.skills.title")}
+                                </h2>
                             </div>
                         </div>
+
+                        {/* RIGHT */}
+                        <div className="md:col-span-2 flex flex-col gap-20">
+                            <SkillsBlock
+                                title={t("about.skills.categories.development")}
+                                skills={devSkills}
+                            />
+
+                            <SkillsBlock
+                                title={t("about.skills.categories.interface")}
+                                skills={uiSkills}
+                            />
+                        </div>
+
                     </motion.div>
                 </div>
+
             </div>
-        </div>
+        </>
     );
 }

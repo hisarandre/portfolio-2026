@@ -62,7 +62,7 @@ export default function MobileNav({ onThemeToggle, dark }: Props) {
                                         onClick={() => setOpen(false)}
                                         className="text-4xl font-extrabold tracking-tight hover:text-[var(--lime)] transition-colors"
                                     >
-                                        {t(link.labelKey)}
+                                        {t(`nav.${link.id}`)}
                                     </Link>
                                 </motion.div>
                             ))}
