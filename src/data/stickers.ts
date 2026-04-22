@@ -1,6 +1,5 @@
 import coffeeImg from "../assets/stickers/coffee.png";
 import polyImg from "../assets/stickers/polyglote.png";
-import type {TranslationKey} from "../i18n";
 
 export interface StickerData {
     id: number;
@@ -9,10 +8,10 @@ export interface StickerData {
     defaultRot: number;
     size: number;
     trigger: string;
-    foundKey: TranslationKey;
-    nameKey: TranslationKey;
-    suffixKey: TranslationKey;
-    descKey: TranslationKey;
+    foundKey: string;
+    nameKey: string;
+    suffixKey: string;
+    descKey: string;
 }
 
 export const stickers: StickerData[] = [

@@ -36,7 +36,10 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
 
             const value = key
                 .split(".")
-                .reduce((obj, k) => (obj ? obj[k] : undefined), translations[lang]);
+                .reduce(
+                    (obj, k) => (obj && typeof obj === "object" ? (obj as Record<string, unknown>)[k] : undefined),
+                    translations[lang] as unknown
+                );
 
             if (Array.isArray(value)) return value;
             if (typeof value === "object" && options?.returnObjects) return value;
