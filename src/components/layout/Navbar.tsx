@@ -3,8 +3,9 @@ import NavLogo from "../ui/Nav/NavLogo.tsx";
 import ThemeToggle from "../ui/Nav/ThemeToggle.tsx";
 import LangSwitcher from "../ui/Nav/LangSwitcher.tsx";
 import { motion } from "framer-motion";
-import {useLoading} from "../../context/LoadingContext.tsx";
-import {useHoverCursor} from "../../hooks/useHoverCursor.ts";
+import { useLoading } from "../../context/LoadingContext.tsx";
+import { useHoverCursor } from "../../hooks/useHoverCursor.ts";
+import { useMenu } from "../../context/MenuContext.tsx";
 
 interface Props {
     onThemeToggle: () => void;
@@ -14,6 +15,7 @@ interface Props {
 export default function Navbar({ onThemeToggle, dark }: Props) {
     const { isLoading } = useLoading();
     const hoverProps = useHoverCursor();
+    const { setOpen } = useMenu();
 
     return (
         <motion.nav
@@ -32,7 +34,13 @@ export default function Navbar({ onThemeToggle, dark }: Props) {
             <div className="flex-1 flex items-center gap-10 justify-end">
                 <ThemeToggle dark={dark} onToggle={onThemeToggle} />
                 <LangSwitcher />
-                <span className="text-[var(--lime)]">PRESS / FOR ?</span>
+                <span
+                    {...hoverProps}
+                    onClick={() => setOpen(true)}
+                    className="text-[var(--lime)] cursor-pointer"
+                >
+                    PRESS / FOR ?
+                </span>
             </div>
         </motion.nav>
     );

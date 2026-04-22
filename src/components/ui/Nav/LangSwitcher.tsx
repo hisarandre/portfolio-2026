@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "../../../context/LangContext";
 import { useDiscoverable } from "../../../hooks/useDiscoverable";
+import { useCursor } from "../../../context/CursorContext";
 
 const langs = [
     { code: "en", label: "ENG" },
@@ -23,6 +24,7 @@ export default function LangSwitcher() {
     const { lang, setLang } = useLang();
     const [open, setOpen] = useState(false);
     const { handlers } = useDiscoverable("lang", { hoverMode: "hover" });
+    const { setMode } = useCursor();
 
     const current = langs.find((l) => l.code === lang)!;
     const others = langs.filter((l) => l.code !== lang);
@@ -35,11 +37,17 @@ export default function LangSwitcher() {
     return (
         <div
             className="relative"
-            onMouseEnter={() => { setOpen(true); handlers.onMouseEnter(); }}
-            onMouseLeave={() => { setOpen(false); handlers.onMouseLeave(); }}
-            onClick={handlers.onClick}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
         >
-            <span className="cursor-pointer">{current.label}</span>
+            <span
+                className="cursor-pointer"
+                onMouseEnter={handlers.onMouseEnter}
+                onMouseLeave={handlers.onMouseLeave}
+                onClick={handlers.onClick}
+            >
+                {current.label}
+            </span>
 
             <AnimatePresence>
                 {open && (
@@ -55,6 +63,8 @@ export default function LangSwitcher() {
                             <span
                                 key={l.code}
                                 onClick={(e) => { e.stopPropagation(); handleSelect(l.code); }}
+                                onMouseEnter={() => setMode("hover")}
+                                onMouseLeave={() => setMode("default")}
                                 className="cursor-pointer text-[var(--muted)] hover:text-[var(--text)] transition-colors text-right"
                             >
                                 {l.label}

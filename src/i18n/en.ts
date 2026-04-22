@@ -29,7 +29,27 @@ export default {
         },
         coffee: {
             name: "coffee",
-            desc: "Although I love coffee… I rarely drink it while it’s still hot.",
+            desc: "Although I love coffee… I rarely drink it while it's still hot.",
+        },
+        multitask: {
+            name: "multitasker",
+            desc: "I also was an illustrator and a motion designer in my past life. But now, I just want to draw for fun.",
+        },
+        photo: {
+            name: "photographer",
+            desc: "18k+ pictures saved and counting. No I will not delete any of them.",
+        },
+        pokemon: {
+            name: "pokémon fan",
+            desc: "And my new recent passion? Collecting Pokémon cards. But the real game is organizing the collection...",
+        },
+        smile: {
+            name: "😊😊😊",
+            desc: "Overusing this emoji for the happy mood.",
+        },
+        travel: {
+            name: "traveler",
+            desc: "Airports are where I get my best ideas. Something about being in-between places just clicks.",
         },
     },
 
@@ -87,4 +107,4 @@ export default {
             },
         },
     },
-};
+}

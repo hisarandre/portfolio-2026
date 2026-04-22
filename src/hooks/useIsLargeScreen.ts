@@ -4,7 +4,7 @@ export function useIsLargeScreen() {
     const [isLarge, setIsLarge] = useState(false);
 
     useEffect(() => {
-        const check = () => setIsLarge(window.innerWidth >= 1920); // 2xl
+        const check = () => setIsLarge(window.innerWidth >= 1920);
         check();
 
         window.addEventListener("resize", check);

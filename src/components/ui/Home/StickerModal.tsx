@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { XIcon } from "@phosphor-icons/react";
 import {useLang} from "../../../context/LangContext.tsx";
 import type {StickerData} from "../../../data/stickers.ts";
+import {useHoverCursor} from "../../../hooks/useHoverCursor.ts";
 
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export default function StickerModal({ sticker, onClose }: Props) {
     const { t } = useLang();
+    const hoverProps = useHoverCursor();
 
     return (
         <AnimatePresence>
@@ -62,6 +64,7 @@ export default function StickerModal({ sticker, onClose }: Props) {
 
                         {/* Close */}
                         <button
+                            {...hoverProps}
                             onClick={onClose}
                             className="absolute top-4 right-4 text-[var(--muted)] hover:text-[var(--text)] transition-colors"
                         >

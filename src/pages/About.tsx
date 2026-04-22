@@ -5,6 +5,7 @@ import { CompanyItem } from "../components/ui/Me/CompanyItem";
 import about from "../assets/about.png";
 import { useLang } from "../context/LangContext";
 import AnimatedNoise from "../components/ui/AnimatedNoise";
+import {useDiscoverable} from "../hooks/useDiscoverable.ts";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 const contentEase = [0.22, 1, 0.36, 1] as const;
@@ -21,6 +22,10 @@ export default function About() {
     useLenis();
     const { t } = useLang();
     const [entered, setEntered] = useState(false);
+    const { handlers: smileHandlers } = useDiscoverable("smile");
+    const { handlers: travelHandlers } = useDiscoverable("travel");
+    const { handlers: multitaskHandlers } = useDiscoverable("multitask");
+
 
     useEffect(() => {
         const timer = setTimeout(() => setEntered(true), 100);
@@ -68,6 +73,7 @@ export default function About() {
                         className="w-full shrink-0 overflow-hidden"
                     >
                         <img
+                            {...travelHandlers}
                             src={about}
                             className="w-full h-full object-cover object-top"
                         />
@@ -82,11 +88,11 @@ export default function About() {
                         <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-16">
                             <div>
                                 <div className="text-[var(--lime)]">01/</div>
-                                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-medium tracking-tight leading-none">
+                                <h1 {...smileHandlers} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-medium tracking-tight leading-none">
                                     Hi there :)
                                 </h1>
                             </div>
-                            <p className="max-w-xs sm:max-w-sm md:max-w-md text-[var(--muted)] leading-relaxed md:pt-4">
+                            <p {...multitaskHandlers} className="max-w-xs sm:max-w-sm md:max-w-md text-[var(--muted)] leading-relaxed md:pt-4">
                                 {t("about.description")}
                             </p>
                         </div>
@@ -101,7 +107,7 @@ export default function About() {
                     <div className="w-full flex flex-col md:flex-row justify-between gap-10 sticky top-32">
                         <div className="w-[35vh]">
                             <div className="text-[var(--lime)] pb-6">02/</div>
-                            <h2 className="!text-5xl font-medium tracking-tight leading-none">
+                            <h2 className="text-5xl! font-medium tracking-tight leading-none">
                                 {t("about.companies.title")}
                             </h2>
                         </div>

@@ -25,11 +25,31 @@ export default {
 
         lang: {
             name: "polyglotte",
-            desc: "Je parle plusieurs langues… mais il m'arrive de les mélanger au milieu d'une phrase. Ça a du sens. Juste pas pour tout le monde.",
+            desc: "Je parle plusieurs langues... mais je les mélange parfois en pleine phrase. Ça fait sens. Juste pas pour tout le monde.",
         },
         coffee: {
             name: "café",
-            desc: "J'adore le café… mais je le bois rarement tant qu'il est encore chaud.",
+            desc: "J'adore le café… mais je le bois rarement encore chaud.",
+        },
+        multitask: {
+            name: "multitâche",
+            desc: "J'étais aussi illustrateur et motion designer dans une vie passée. Maintenant je dessine juste pour le plaisir.",
+        },
+        photo: {
+            name: "photographe",
+            desc: "18k+ photos sauvegardées et ça continue. Non je ne vais pas en supprimer.",
+        },
+        pokemon: {
+            name: "fan de pokémon",
+            desc: "Et ma nouvelle passion ? Collectionner des cartes Pokémon. Mais le vrai jeu c'est d'organiser la collection...",
+        },
+        smile: {
+            name: "😊😊😊",
+            desc: "J'abuse de cet emoji pour exprimer la bonne humeur.",
+        },
+        travel: {
+            name: "voyageur",
+            desc: "C'est dans les aéroports que j'ai mes meilleures idées. Quelque chose dans le fait d'être entre deux endroits.",
         },
     },
 
