@@ -1,3 +1,5 @@
+import {useIsMobile} from "../../../hooks/useIsMobile.ts";
+
 interface Props {
     title: string;
     skills: string[];

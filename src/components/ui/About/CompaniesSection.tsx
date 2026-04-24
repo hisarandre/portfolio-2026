@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { motion, MotionValue } from "framer-motion";
 import { CompanyItem } from "../Me/CompanyItem.tsx";
 import { useLang } from "../../../context/LangContext";
-import {useIsMobile} from "../../../hooks/useIsMobile.ts";
+import { useIsMobile } from "../../../hooks/useIsMobile.ts";
 
 interface Props {
     companies: string[];
@@ -25,11 +25,11 @@ const CompaniesSection = forwardRef<HTMLDivElement, Props>(
                 <div className="w-full flex flex-col md:flex-row justify-between gap-10">
                     <div className="w-[35vh]">
                         <div className="text-[var(--lime)] pb-6">02/</div>
-                        <h2 className="!text-4xl md:!text-5xl tracking-tight leading-none">
+                        <h2 className="!text-4xl md:!text-5xl font-medium tracking-tight leading-none">
                             {t("about.companies.title")}
                         </h2>
                     </div>
-                    <div className={ isMobile? `` : `text-right pt-12`}>
+                    <div className={isMobile ? `` : `text-right pt-12`}>
                         {companies.map((company) => (
                             <CompanyItem key={company} company={company} />
                         ))}
