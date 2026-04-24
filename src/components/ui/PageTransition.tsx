@@ -38,7 +38,7 @@ export default function PageTransition({ visible, message = "..." }: Props) {
                         animate="animate"
                         exit="exit"
                         transition={textTransition}
-                        className="text-[var(--dark)] text-[clamp(1.5rem,4vw,3rem)] font-medium leading-none"
+                        className="text-[var(--dark)] text-[clamp(1.5rem,4vw,3rem)]"
                     >
                         {message}
                     </motion.span>

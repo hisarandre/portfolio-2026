@@ -10,12 +10,12 @@ export default function NavLogo() {
 
     return (
         <div
-            className="flex items-center overflow-hidden cursor-pointer"
+            className="flex items-center"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             onClick={() => navigateTo("/", "Home")}
         >
-            <span className="pr-1">SARA</span>
+            <span className="pr-2">SARA</span>
             <AnimatePresence>
                 {hovered &&
                     letters.map((letter, i) => (

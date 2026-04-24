@@ -73,7 +73,7 @@ export const stickers: StickerData[] = [
         image: pokemonImg,
         defaultPos: { x: 80, y: 55 },
         defaultRot: -6,
-        size: 180,
+        size: 160,
         trigger: "pokemon",
         foundKey: "sticker.found",
         suffixKey: "sticker.suffix",

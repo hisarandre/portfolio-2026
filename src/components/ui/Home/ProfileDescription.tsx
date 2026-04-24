@@ -13,7 +13,9 @@ export default function ProfileDescription() {
             <img {...photoHandlers} src={profile} alt="profile" className="mb-8 rounded-xl" />
             <p>
                 <span {...coffeeHandlers}> {t("home.description.part1")}</span>
-                <span {...pokemonHandlers} className="text-[var(--muted)]">{t("home.description.part2")}</span>
+                <span {...pokemonHandlers} className="text-[var(--muted)]">
+                    {t("home.description.part2")}
+                </span>
                 {t("home.description.part3")}
             </p>
         </>

@@ -16,7 +16,7 @@ export default function OutsideLink({ label, href }: OutsideLinkProps) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 tracking-widest uppercase text-[var(--text)]"
+                className="inline-flex items-center gap-1 uppercase text-[var(--text)]"
                 initial="rest"
                 whileHover="hover"
                 animate="rest"

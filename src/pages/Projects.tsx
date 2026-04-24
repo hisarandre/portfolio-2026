@@ -21,7 +21,6 @@ export default function Projects() {
         <>
             <AnimatedNoise />
 
-            {/* 📱 MOBILE */}
             {isMobile && (
                 <div className="flex-1 flex flex-col gap-4 z-10">
                     {projects.map((project, i) => (
@@ -34,7 +33,6 @@ export default function Projects() {
                 </div>
             )}
 
-            {/* 🖥️ VERY LARGE → PINTEREST */}
             {!isMobile && isLarge && (
                 <div className="flex-1 z-10 px-12">
                     <motion.div
@@ -58,7 +56,6 @@ export default function Projects() {
                 </div>
             )}
 
-            {/* 💻 LAPTOP (ton layout actuel) */}
             {!isMobile && !isLarge && (
                 <div className="flex-1 flex items-stretch z-10">
                     <motion.div
@@ -73,7 +70,7 @@ export default function Projects() {
                             ease: [0.22, 1, 0.36, 1],
                             delay: 0.1,
                         }}
-                        className="flex-1 flex items-stretch"
+                        className="flex-1 flex items-stretch min-h-0"
                     >
                         <ProjectCard project={active} />
                         <ProjectList
