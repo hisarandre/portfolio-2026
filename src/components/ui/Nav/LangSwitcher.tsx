@@ -2,13 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "../../../context/LangContext";
 import { useDiscoverable } from "../../../hooks/useDiscoverable";
-import { useCursor } from "../../../context/CursorContext";
-
-const langs = [
-    { code: "en", label: "ENG" },
-    { code: "fr", label: "FR" },
-    { code: "ko", label: "한" },
-] as const;
+import { useHoverCursor } from "../../../hooks/useHoverCursor";
+import { langs, type LangCode } from "../../../data/langs";
 
 const dropdownVariants = {
     initial: { opacity: 0, y: -4 },
@@ -18,13 +13,11 @@ const dropdownVariants = {
 
 const dropdownTransition = { duration: 0.15 };
 
-type LangCode = typeof langs[number]["code"];
-
 export default function LangSwitcher() {
     const { lang, setLang } = useLang();
     const [open, setOpen] = useState(false);
     const { handlers } = useDiscoverable("lang", { hoverMode: "hover" });
-    const { setMode } = useCursor();
+    const hoverProps = useHoverCursor();
 
     const current = langs.find((l) => l.code === lang)!;
     const others = langs.filter((l) => l.code !== lang);
@@ -41,7 +34,6 @@ export default function LangSwitcher() {
             onMouseLeave={() => setOpen(false)}
         >
             <span
-                className="cursor-pointer"
                 onMouseEnter={handlers.onMouseEnter}
                 onMouseLeave={handlers.onMouseLeave}
                 onClick={handlers.onClick}
@@ -63,9 +55,8 @@ export default function LangSwitcher() {
                             <span
                                 key={l.code}
                                 onClick={(e) => { e.stopPropagation(); handleSelect(l.code); }}
-                                onMouseEnter={() => setMode("hover")}
-                                onMouseLeave={() => setMode("default")}
-                                className="cursor-pointer text-[var(--muted)] hover:text-[var(--text)] transition-colors text-right"
+                                {...hoverProps}
+                                className="text-[var(--muted)] hover:text-[var(--text)] transition-colors text-right"
                             >
                                 {l.label}
                             </span>

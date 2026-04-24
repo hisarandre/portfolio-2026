@@ -1,8 +1,8 @@
-import { useRef, useEffect } from "react";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform, useSpring, animate } from "framer-motion";
 import type { StickerData } from "../../../data/stickers.ts";
 import { useCursor } from "../../../context/CursorContext.tsx";
-import {useLoading} from "../../../context/LoadingContext.tsx";
+import { useLoading } from "../../../context/LoadingContext.tsx";
 
 interface Props {
     sticker: StickerData;
@@ -12,6 +12,7 @@ interface Props {
 export default function Sticker({ sticker, index }: Props) {
     const { setMode } = useCursor();
     const { isLoading } = useLoading();
+    const [isDragging, setIsDragging] = useState(false);
 
     const relPos = useRef({
         xPct: sticker.defaultPos.x / 100,
@@ -20,6 +21,8 @@ export default function Sticker({ sticker, index }: Props) {
 
     const x = useMotionValue((sticker.defaultPos.x / 100) * window.innerWidth);
     const y = useMotionValue((sticker.defaultPos.y / 100) * window.innerHeight);
+    const scale = useMotionValue(1);
+    const filter = useMotionValue("drop-shadow(0 4px 2px rgba(0,0,0,0.3))");
 
     const rotateRaw = useTransform(x, () => {
         const vel = x.getVelocity();
@@ -30,21 +33,29 @@ export default function Sticker({ sticker, index }: Props) {
 
     useEffect(() => {
         const onResize = () => {
-            const newW = window.innerWidth;
-            const newH = window.innerHeight;
-            x.set(relPos.current.xPct * newW);
-            y.set(relPos.current.yPct * newH);
+            x.set(relPos.current.xPct * window.innerWidth);
+            y.set(relPos.current.yPct * window.innerHeight);
         };
         window.addEventListener("resize", onResize);
         return () => window.removeEventListener("resize", onResize);
     }, [x, y]);
+
+    const onDragStart = () => {
+        setIsDragging(true);
+        setMode("drag");
+        animate(scale, 1.05, { duration: 0.1 });
+        animate(filter, "drop-shadow(0 16px 24px rgba(0,0,0,0.5))", { duration: 0.1 });
+    };
 
     const onDragEnd = () => {
         relPos.current = {
             xPct: x.get() / window.innerWidth,
             yPct: y.get() / window.innerHeight,
         };
+        setIsDragging(false);
         setMode("default");
+        animate(scale, 1, { duration: 0.1 });
+        animate(filter, "drop-shadow(0 4px 2px rgba(0,0,0,0.3))", { duration: 0.1 });
     };
 
     return (
@@ -53,7 +64,7 @@ export default function Sticker({ sticker, index }: Props) {
             alt=""
             drag
             dragMomentum={false}
-            onDragStart={() => setMode("drag")}
+            onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onHoverStart={() => setMode("drag")}
             onHoverEnd={() => setMode("default")}
@@ -62,6 +73,8 @@ export default function Sticker({ sticker, index }: Props) {
                 x,
                 y,
                 rotate,
+                scale,
+                filter,
                 position: "fixed",
                 top: 0,
                 left: 0,
@@ -70,24 +83,30 @@ export default function Sticker({ sticker, index }: Props) {
                 objectFit: "contain",
                 translateX: "-50%",
                 translateY: "-50%",
-                zIndex: index + 10,
+                zIndex: isDragging ? 1000 : index + 10,
                 touchAction: "none",
                 willChange: "transform",
-                filter: "drop-shadow(0 4px 2px rgba(0,0,0,0.3))",
             }}
-            whileDrag={{
-                scale: 1.05,
-                filter: "drop-shadow(0 16px 24px rgba(0,0,0,0.5))",
-                zIndex: 1000,
+            initial={{
+                opacity: 0,
+                scale: 0.8,
+                rotate: sticker.defaultRot - 10,
             }}
-            whileHover={{ scale: 1.02 }}
-            initial={{ opacity: 0, scale: 0.8, rotate: sticker.defaultRot - 10 }}
-            animate={isLoading
-                ? { opacity: 0, scale: 0.8, rotate: sticker.defaultRot - 10 }
-                : { opacity: 1, scale: 1, rotate: sticker.defaultRot }
-            }
-            transition={{ type: "spring", stiffness: 300, damping: 25, delay: 1.5 + index * 0.05 }}
+            animate={isLoading ? {
+                opacity: 0,
+                scale: 0.8,
+                rotate: sticker.defaultRot - 10,
+            } : {
+                opacity: 1,
+                scale: 1,
+                rotate: sticker.defaultRot,
+            }}
+            transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+                delay: 1.5 + index * 0.05,
+            }}
         />
     );
 }
-

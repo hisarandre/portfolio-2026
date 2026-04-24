@@ -16,7 +16,7 @@ const variants = {
 export default function ThemeToggle({ dark, onToggle }: Props) {
     const hoverProps = useHoverCursor();
     return (
-        <div {...hoverProps} className="overflow-hidden w-5 h-5 cursor-pointer" onClick={onToggle}>
+        <div {...hoverProps} className="overflow-hidden w-5 h-5" onClick={onToggle}>
             <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                     key={dark ? "sun" : "moon"}

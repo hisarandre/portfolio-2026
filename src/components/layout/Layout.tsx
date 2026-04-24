@@ -10,24 +10,25 @@ interface Props {
     children: React.ReactNode;
     onThemeToggle: () => void;
     dark: boolean;
+    fullHeight?: boolean;
 }
 
-export default function Layout({ children, onThemeToggle, dark }: Props) {
+export default function Layout({ children, onThemeToggle, dark, fullHeight }: Props) {
     const { open } = useMenu();
     const isMobile = useIsMobile();
 
     const Nav = isMobile ? MobileNav : Navbar;
 
     return (
-        <div className="overflow-hidden">
+        <div className={fullHeight ? "overflow-hidden h-screen" : "overflow-x-hidden"}>
             <motion.div
                 animate={{ x: open && !isMobile ? -320 : 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="w-screen min-h-screen flex flex-col"
+                className={fullHeight ? "w-screen h-screen flex flex-col" : "w-screen min-h-screen flex flex-col"}
             >
                 <Nav onThemeToggle={onThemeToggle} dark={dark} />
 
-                <main className="flex flex-1 px-6 sm:px-10 md:px-20 lg:px-40 z-10 py-32">
+                <main className={`flex flex-1 px-6 sm:px-10 md:px-20 z-10 py-32 ${fullHeight ? "min-h-0 overflow-hidden" : ""}`}>
                     {children}
                 </main>
 

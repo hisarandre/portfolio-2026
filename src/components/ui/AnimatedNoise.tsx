@@ -25,7 +25,7 @@ export default function AnimatedNoise() {
                 data[i] = value;
                 data[i + 1] = value;
                 data[i + 2] = value;
-                data[i + 3] = 10; // opacité du grain
+                data[i + 3] = 10; // grain opacity
             }
 
             ctx.putImageData(imageData, 0, 0);

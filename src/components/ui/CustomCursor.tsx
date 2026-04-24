@@ -1,7 +1,38 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useCursor } from "../../context/CursorContext";
+import { useCursor, type CursorMode } from "../../context/CursorContext";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+
+const RING_CONFIG: Record<CursorMode, { size: number } | null> = {
+    default:   null,
+    hover:     { size: 40 },
+    magnifier: { size: 56 },
+    drag:      { size: 52 },
+};
+
+const springConfig = { stiffness: 300, damping: 28, mass: 0.5 };
+
+function RingContent({ mode }: { mode: CursorMode }) {
+    switch (mode) {
+        case "magnifier":
+            return (
+                <div className="size-full rounded-full border border-[var(--lime)] flex items-center justify-center text-[var(--lime)]">
+                    <MagnifyingGlassIcon size={20} />
+                </div>
+            );
+        case "drag":
+            return (
+                <div
+                    className="size-full rounded-full flex items-center justify-center text-[var(--lime)] font-mono text-[10px] tracking-widest"
+                    style={{ background: "color-mix(in srgb, var(--dark) 60%, transparent)" }}
+                >
+                    DRAG
+                </div>
+            );
+        default:
+            return <div className="size-full rounded-full border border-[var(--lime)]" />;
+    }
+}
 
 export default function CustomCursor() {
     const { mode } = useCursor();
@@ -12,8 +43,8 @@ export default function CustomCursor() {
     const dotX = useMotionValue(-100);
     const dotY = useMotionValue(-100);
 
-    const x = useSpring(cursorX, { stiffness: 300, damping: 28, mass: 0.5 });
-    const y = useSpring(cursorY, { stiffness: 300, damping: 28, mass: 0.5 });
+    const x = useSpring(cursorX, springConfig);
+    const y = useSpring(cursorY, springConfig);
 
     useEffect(() => {
         const move = (e: MouseEvent) => {
@@ -23,7 +54,7 @@ export default function CustomCursor() {
             dotY.set(e.clientY);
         };
         const down = () => setClicking(true);
-        const up = () => setClicking(false);
+        const up   = () => setClicking(false);
 
         window.addEventListener("mousemove", move);
         window.addEventListener("mousedown", down);
@@ -35,74 +66,39 @@ export default function CustomCursor() {
         };
     }, [cursorX, cursorY, dotX, dotY]);
 
-    const ringSize = mode === "magnifier" ? 56 : mode === "drag" ? 52 : 40;
+    const ring = RING_CONFIG[mode];
+    const showDot = mode !== "magnifier" && mode !== "drag";
 
-    const ringContent = () => {
-        if (mode === "magnifier") return (
-            <div style={{
-                width: "100%", height: "100%", borderRadius: "50%",
-                border: "1.5px solid var(--lime)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "var(--lime)",
-            }}>
-                <MagnifyingGlassIcon size={20} />
-            </div>
-        );
-        if (mode === "drag") return (
-            <div style={{
-                width: "100%", height: "100%", borderRadius: "50%",
-                background: "color-mix(in srgb, var(--dark) 60%, transparent)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "var(--lime)",
-                fontFamily: "monospace",
-                fontSize: 10,
-                letterSpacing: "0.1em",
-            }}>
-                DRAG
-            </div>
-        );
-        return (
-            <div style={{
-                width: "100%", height: "100%", borderRadius: "50%",
-                border: "1.5px solid var(--lime)",
-            }} />
-        );
+    const baseStyle = {
+        translateX: "-50%",
+        translateY: "-50%",
+        position: "fixed" as const,
+        pointerEvents: "none" as const,
+        zIndex: 9999,
     };
 
     return (
         <>
-            {/* Ring — hidden on default */}
-            {mode !== "default" && (
+            {ring && (
                 <motion.div
-                    style={{
-                        x, y,
-                        translateX: "-50%",
-                        translateY: "-50%",
-                        position: "fixed",
-                        pointerEvents: "none",
-                        zIndex: 9999,
-                    }}
+                    style={{ x, y, ...baseStyle }}
                     animate={{
-                        width: clicking ? ringSize * 0.8 : ringSize,
-                        height: clicking ? ringSize * 0.8 : ringSize,
+                        width:  clicking ? ring.size * 0.8 : ring.size,
+                        height: clicking ? ring.size * 0.8 : ring.size,
                         opacity: 1,
                     }}
                     transition={{ duration: 0.15 }}
                 >
-                    {ringContent()}
+                    <RingContent mode={mode} />
                 </motion.div>
             )}
 
-            {/* Dot — hidden on magnifier and drag */}
-            {mode !== "magnifier" && mode !== "drag" && (
+            {showDot && (
                 <motion.div
                     style={{
-                        x: dotX, y: dotY,
-                        translateX: "-50%",
-                        translateY: "-50%",
-                        position: "fixed",
-                        pointerEvents: "none",
-                        zIndex: 9999,
+                        x: dotX,
+                        y: dotY,
+                        ...baseStyle,
                         borderRadius: "50%",
                         background: mode === "hover" ? "var(--lime)" : "var(--text)",
                     }}

@@ -18,7 +18,7 @@ export default function ProjectNoise() {
                 data[i] = value * 0.6;
                 data[i + 1] = value * 0.9;
                 data[i + 2] = value * 0.2;
-                data[i + 3] = 40;
+                data[i + 3] = 30;
             }
 
             ctx.putImageData(imageData, 0, 0);
@@ -30,11 +30,11 @@ export default function ProjectNoise() {
     }, []);
 
     return (
-        <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden bg-[var(--dark)]">
+        <div className="relative w-full h-full overflow-hidden bg-[var(--dark)]">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                 <span className="font-mono text-xs text-[var(--lime)] uppercase">
-                    Confidential
+                    ( Confidential )
                 </span>
             </div>
         </div>

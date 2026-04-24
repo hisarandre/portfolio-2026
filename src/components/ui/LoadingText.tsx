@@ -15,7 +15,7 @@ export default function LoadingText() {
 
     return (
         <motion.p
-            className="fixed inset-0 flex items-center justify-center z-[20] font-mono text-sm text-[var(--muted)] uppercase"
+            className="fixed inset-0 flex items-center justify-center z-[20] text-[var(--muted)] uppercase"
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}

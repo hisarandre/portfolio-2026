@@ -24,16 +24,16 @@ export default function HeroTitle({ isReady }: { isReady: boolean }) {
         <h1 className="leading-[1.08] text-center">
             {lines.map((line, i) => (
                 <span key={i} className="block overflow-hidden">
-          <motion.span
-              className="block"
-              custom={i}
-              variants={lineVariants}
-              initial="hidden"
-              animate={isReady ? "visible" : "hidden"}
-          >
-            {line}
-          </motion.span>
-        </span>
+                      <motion.span
+                          className="block"
+                          custom={i}
+                          variants={lineVariants}
+                          initial="hidden"
+                          animate={isReady ? "visible" : "hidden"}
+                      >
+                            {line}
+                      </motion.span>
+                </span>
             ))}
         </h1>
     );

@@ -14,7 +14,7 @@ export default function ProjectList({ projects, active, onHover }: Props) {
     const { isLoading } = useLoading();
 
     return (
-        <nav className="w-2/3 flex flex-col justify-end pl-16 pb-6">
+        <nav className="flex flex-col justify-end pl-16 pb-6">
             {projects.map((project, i) => {
                 const isActive = active.id === project.id;
 

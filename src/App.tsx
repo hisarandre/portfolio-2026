@@ -1,7 +1,7 @@
 import { useTheme } from "./hooks/useTheme";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import {LangProvider} from "./context/LangContext.tsx";
 import { MenuProvider } from "./context/MenuContext.tsx";
 import CustomCursor from "./components/ui/CustomCursor.tsx";
@@ -21,12 +21,16 @@ function AppContent() {
     useLenis();
     const { justDiscovered, clearJustDiscovered } = useDiscovered();
     const { isLoading } = useLoading();
+    const { pathname } = useLocation();
+
+    const FULL_HEIGHT_ROUTES = ["/projects", "/"];
+    const fullHeight = FULL_HEIGHT_ROUTES.includes(pathname);
 
     return (
         <PageTransitionProvider>
             <CustomCursor />
             <StickerModal sticker={justDiscovered} onClose={clearJustDiscovered} />
-            <Layout onThemeToggle={toggle} dark={dark}>
+            <Layout onThemeToggle={toggle} dark={dark} fullHeight={fullHeight}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/projects" element={<Projects />} />
