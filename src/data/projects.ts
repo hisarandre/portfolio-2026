@@ -1,4 +1,5 @@
 import portfolio from "../assets/projects/portfolio.png";
+import portfolio01 from "../assets/projects/portfolio_01.png";
 
 export interface Project {
     id: string;
@@ -22,7 +23,7 @@ export const projects: Project[] = [
         confidential: false,
         cover: portfolio,
         year: 2026,
-        images: [portfolio,portfolio],
+        images: [portfolio01],
     },
     {
         id: "predik360",

@@ -9,7 +9,7 @@ export default {
             part2: "(too many) ",
             part3: "passions",
         },
-        hint: "Page feels empty? Try finding all the hidden stickers",
+        hint: "Page feels empty? Try finding the 7 hidden stickers",
     },
 
     nav: {
@@ -37,11 +37,11 @@ export default {
         },
         photo: {
             name: "photographer",
-            desc: "18k+ pictures saved and counting. No I will not delete any of them.",
+            desc: "18k+ pictures saved and well organized. No I will not delete any of them.",
         },
         pokemon: {
             name: "pokémon fan",
-            desc: "And my new recent passion? Collecting Pokémon cards. But the real game is organizing the collection...",
+            desc: "My new recent passion? Collecting Pokémon cards. But the real game is organizing the collection...",
         },
         smile: {
             name: "😊😊😊",
@@ -56,11 +56,24 @@ export default {
     projects: {
         portfolio: {
             title: "Portfolio",
-            desc: "The site you're looking at. Designed and developed from scratch with React, TypeScript and Framer Motion. Features a custom cursor, hidden stickers to discover, multilingual support, and a dark/light theme.",
+            desc: "Designed and developed from scratch — the site you're looking at.",
+            features: [
+                { label: "Custom cursor", desc: "Fully custom cursor with context-aware interactions." },
+                { label: "Hidden stickers", desc: "Easter eggs scattered across the site to discover more about my passions." },
+                { label: "Multilingual", desc: "Full i18n support with seamless language switching." },
+                { label: "Theming", desc: "Dark and light mode with smooth transitions." },
+            ],
         },
         predik360: {
             title: "Predik360",
-            desc: "An internal management platform for EHPADs — handling orders, invoicing, contracts and document management, integrated with DocuWare.",
+            desc: "A management platform for EHPADs, built end-to-end.",
+            features: [
+                { label: "Order management", desc: "Full order lifecycle from creation to facturation." },
+                { label: "Role system", desc: "Multi-level roles and permissions across users and organizations." },
+                { label: "Invoicing", desc: "Automated invoice generation and history, integrated with DocuWare." },
+                { label: "Contracts", desc: "Contract creation, versioning and renewal reminders." },
+                { label: "Product categories", desc: "Multi-tier category hierarchy (families, sub-families) for equipment classification." },
+            ],
         },
         meta: {
             tags: "Tags",
@@ -92,8 +105,8 @@ export default {
             list: {
                 dev: [
                     "Java · Spring Boot",
-                    "React · Angular · TypeScript",
                     "Node.js · NestJS",
+                    "React · Angular · TypeScript",
                     "MySQL · MongoDB",
                     "SonarQube · Docker",
                 ],

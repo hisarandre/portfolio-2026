@@ -33,6 +33,7 @@ export default function ProjectDetails() {
     if (!project) return null;
 
     const desc  = t(`projects.${project.id}.desc`);
+    const features  = t(`projects.${project.id}.features`);
     const title = t(`projects.${project.id}.title`);
 
     return (
@@ -72,7 +73,7 @@ export default function ProjectDetails() {
                     </div>
 
                     {/* SLIDE 2 — description */}
-                    <ProjectDescription desc={desc} />
+                    <ProjectDescription desc={desc} features={features}/>
 
                     {/* SLIDES — additional images */}
                     {project.images?.map((img, i) => (

@@ -9,7 +9,7 @@ export default {
             part2: "(beaucoup trop) ",
             part3: "passions",
         },
-        hint: "La page semble vide ?\nEssaie de trouver tous les stickers cachés",
+        hint: "La page semble vide ? Essaie de trouver les 7 stickers cachés",
     },
 
     nav: {
@@ -25,7 +25,7 @@ export default {
 
         lang: {
             name: "polyglotte",
-            desc: "Je parle plusieurs langues... mais je les mélange parfois en pleine phrase. Ça fait sens. Juste pas pour tout le monde.",
+            desc: "Je parle plusieurs langues... mais je vais parfois prononcer un mot en une autre langue. Ça fait sens. Juste pas pour tout le monde.",
         },
         coffee: {
             name: "café",
@@ -33,22 +33,22 @@ export default {
         },
         multitask: {
             name: "multitâche",
-            desc: "J'étais aussi illustrateur et motion designer dans une vie passée. Maintenant je dessine juste pour le plaisir.",
+            desc: "Illustratrice et motion designer dans une vie passée. Maintenant je dessine juste pour le plaisir.",
         },
         photo: {
             name: "photographe",
-            desc: "18k+ photos sauvegardées et ça continue. Non je ne vais pas en supprimer.",
+            desc: "18k+ photos sauvegardées et organisées.",
         },
         pokemon: {
             name: "fan de pokémon",
-            desc: "Et ma nouvelle passion ? Collectionner des cartes Pokémon. Mais le vrai jeu c'est d'organiser la collection...",
+            desc: "Ma nouvelle passion ? Collectionner des cartes Pokémon. Mais le vrai plaisir, c'est d'organiser la collection...",
         },
         smile: {
             name: "😊😊😊",
             desc: "J'abuse de cet emoji pour exprimer la bonne humeur.",
         },
         travel: {
-            name: "voyageur",
+            name: "voyageuse",
             desc: "C'est dans les aéroports que j'ai mes meilleures idées. Quelque chose dans le fait d'être entre deux endroits.",
         },
     },
@@ -56,11 +56,24 @@ export default {
     projects: {
         portfolio: {
             title: "Portfolio",
-            desc: "Le site que vous consultez actuellement. Conçu et développé from scratch avec React, TypeScript et Framer Motion. Il propose un curseur personnalisé, des éléments cachés à découvrir, un support multilingue ainsi qu'un thème clair/sombre.",
+            desc: "Conçu et développé from scratch — le site que tu consultes en ce moment.",
+            features: [
+                { label: "Curseur personnalisé", desc: "Curseur entièrement custom avec des interactions contextuelles." },
+                { label: "Stickers cachés", desc: "Des easter eggs dissimulés sur le site pour en apprendre plus sur mes passions." },
+                { label: "Multilingue", desc: "Support i18n complet avec changement de langue fluide." },
+                { label: "Thème", desc: "Mode clair et sombre avec transitions." },
+            ],
         },
         predik360: {
             title: "Predik360",
-            desc: "Une plateforme de gestion interne pour les EHPAD — gestion des commandes, de la facturation, des contrats et des documents, avec une intégration à DocuWare.",
+            desc: "Une plateforme de commandes groupées permettant aux EHPADs de négocier de meilleurs prix sur le matériel.",
+            features: [
+                { label: "Commandes groupées", desc: "Les EHPADs mutualisent leurs commandes pour accéder à des tarifs négociés." },
+                { label: "Facturation", desc: "Génération et suivi des factures pour chaque établissement." },
+                { label: "Annuaire", desc: "Liste de contacts centralisée par établissement." },
+                { label: "Système de rôles", desc: "Rôles et permissions multi-niveaux à travers les utilisateurs et les organisations." },
+                { label: "Catégories produits", desc: "Hiérarchie de catégories à plusieurs niveaux (familles, sous-familles) pour classifier le matériel." },
+            ],
         },
         meta: {
             tags: "Tags",
