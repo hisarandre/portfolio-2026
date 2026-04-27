@@ -29,7 +29,7 @@ export default function ProjectCardMobile({ project, index }: Props) {
                 <ProjectNoise />
             ) : (
                 <img
-                    src={project.image}
+                    src={project.cover}
                     alt={t(`projects.${project.id}.title`)}
                     className="w-full aspect-[2/1] object-cover rounded-xl"
                 />

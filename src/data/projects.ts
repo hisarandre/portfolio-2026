@@ -5,10 +5,12 @@ export interface Project {
     index: string;
     tags: string[];
     techs: string[];
-    image?: string;
+    cover?: string;
     confidential?: boolean;
     year: number;
     href?: string;
+    images?: string[];
+    client?: string;
 }
 
 export const projects: Project[] = [
@@ -18,8 +20,9 @@ export const projects: Project[] = [
         tags: ["Frontend", "Design"],
         techs: ["React", "Framer Motion"],
         confidential: false,
-        image: portfolio,
+        cover: portfolio,
         year: 2026,
+        images: [portfolio,portfolio],
     },
     {
         id: "predik360",
@@ -28,5 +31,7 @@ export const projects: Project[] = [
         techs: ["Angular", "Nest", "MongoDb"],
         confidential: true,
         year: 2025,
+        images: [],
+        client: "Empirys",
     },
 ];

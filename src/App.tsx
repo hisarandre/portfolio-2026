@@ -15,6 +15,7 @@ import Projects from "./pages/Projects.tsx";
 import About from "./pages/About.tsx";
 import { useLenis } from "./hooks/useLenis.ts";
 import { PageTransitionProvider } from "./context/PageTransitionContext";
+import ProjectDetails from "./pages/ProjectDetails.tsx";
 
 function AppContent() {
     const { dark, toggle } = useTheme();
@@ -25,15 +26,17 @@ function AppContent() {
 
     const FULL_HEIGHT_ROUTES = ["/projects", "/"];
     const fullHeight = FULL_HEIGHT_ROUTES.includes(pathname);
+    const noFooter = pathname.startsWith("/projects/");
 
     return (
         <PageTransitionProvider>
             <CustomCursor />
             <StickerModal sticker={justDiscovered} onClose={clearJustDiscovered} />
-            <Layout onThemeToggle={toggle} dark={dark} fullHeight={fullHeight}>
+            <Layout onThemeToggle={toggle} dark={dark} fullHeight={fullHeight} noFooter={noFooter}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/projects" element={<Projects />} />
+                    <Route path="/projects/:name" element={<ProjectDetails />} />
                     <Route path="/about" element={<About />} />
                 </Routes>
             </Layout>

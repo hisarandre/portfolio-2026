@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import type { Project } from "../../../data/projects";
 import { useLang } from "../../../context/LangContext";
 import { useLoading } from "../../../context/LoadingContext";
+import { useHoverCursor } from "../../../hooks/useHoverCursor.ts";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     projects: Project[];
@@ -12,9 +14,11 @@ interface Props {
 export default function ProjectList({ projects, active, onHover }: Props) {
     const { t } = useLang();
     const { isLoading } = useLoading();
+    const navigate = useNavigate();
+    const hoverProps = useHoverCursor();
 
     return (
-        <nav className="flex flex-col justify-end pl-16 pb-6">
+        <nav className="flex flex-col flex-1 justify-end pl-16 pb-6">
             {projects.map((project, i) => {
                 const isActive = active.id === project.id;
 
@@ -32,7 +36,15 @@ export default function ProjectList({ projects, active, onHover }: Props) {
                             ease: [0.22, 1, 0.36, 1],
                             delay: 0.2 + i * 0.1,
                         }}
-                        onMouseEnter={() => onHover(project)}
+                        onMouseEnter={() => {
+                            onHover(project);
+                            hoverProps.onMouseEnter();
+                        }}
+                        onMouseLeave={hoverProps.onMouseLeave}
+                        onClick={() => {
+                            hoverProps.onMouseLeave();
+                            navigate(`/projects/${project.id}`);
+                        }}
                         className={`flex items-center gap-12 py-6 border-b border-[var(--border)] cursor-pointer transition-all duration-300 ${
                             isActive
                                 ? "opacity-100"

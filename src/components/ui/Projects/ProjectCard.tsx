@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: Props) {
                 ) : (
                     <motion.img
                         key={project.id + "-img"}
-                        src={project.image}
+                        src={project.cover}
                         alt={t(`projects.${project.id}.title`)}
                         initial={{ opacity: 0, scale: 1.04 }}
                         animate={{ opacity: 1, scale: 1 }}

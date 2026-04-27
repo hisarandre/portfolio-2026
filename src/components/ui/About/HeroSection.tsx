@@ -41,12 +41,15 @@ export default function HeroSection({ entered }: Props) {
                         <div className="text-[var(--lime)]">01/</div>
                         <h1 {...smileHandlers}>Hi there :)</h1>
                     </div>
-                    <p
-                        {...multitaskHandlers}
-                        className="max-w-xs sm:max-w-sm md:max-w-md text-[var(--muted)] md:pt-4"
-                    >
-                        {t("about.description")}
-                    </p>
+                    <div className="max-w-xs sm:max-w-sm md:max-w-md text-[var(--muted)] md:pt-4">
+                        <p {...multitaskHandlers}>
+                            {t("about.description")}
+                        </p>
+                        <p className="text-xs font-mono !text-[var(--lime)] pt-4">
+                            (scroll)
+                        </p>
+                    </div>
+
                 </div>
             </motion.div>
         </div>

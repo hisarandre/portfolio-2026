@@ -17,6 +17,7 @@ export default function Projects() {
 
     const [active, setActive] = useState<Project>(() => projects[0]);
 
+
     return (
         <>
             <AnimatedNoise />
@@ -57,29 +58,27 @@ export default function Projects() {
             )}
 
             {!isMobile && !isLarge && (
-                <div className="flex-1 flex items-stretch z-10">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={
-                            !isLoading
-                                ? { opacity: 1, x: 0 }
-                                : { opacity: 0, x: -30 }
-                        }
-                        transition={{
-                            duration: 0.8,
-                            ease: [0.22, 1, 0.36, 1],
-                            delay: 0.1,
-                        }}
-                        className="flex-1 flex items-stretch min-h-0"
-                    >
-                        <ProjectCard project={active} />
-                        <ProjectList
-                            projects={projects}
-                            active={active}
-                            onHover={setActive}
-                        />
-                    </motion.div>
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={
+                        !isLoading
+                            ? { opacity: 1, x: 0 }
+                            : { opacity: 0, x: -30 }
+                    }
+                    transition={{
+                        duration: 0.8,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 0.1,
+                    }}
+                    className="flex-1 flex items-stretch min-h-0"
+                >
+                    <ProjectCard project={active} />
+                    <ProjectList
+                        projects={projects}
+                        active={active}
+                        onHover={setActive}
+                    />
+                </motion.div>
             )}
         </>
     );

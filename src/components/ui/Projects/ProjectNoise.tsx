@@ -30,8 +30,8 @@ export default function ProjectNoise() {
     }, []);
 
     return (
-        <div className="relative w-full h-full overflow-hidden bg-[var(--dark)]">
-            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <div className="relative w-full h-full overflow-hidden bg-[var(--dark)] rounded-xl">
+            <canvas ref={canvasRef} className="md:absolute inset-0 w-full h-full" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                 <span className="font-mono text-xs text-[var(--lime)] uppercase">
                     ( Confidential )
